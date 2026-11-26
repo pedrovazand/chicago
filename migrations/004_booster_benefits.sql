@@ -1,0 +1,22 @@
+CREATE TABLE booster_benefits (
+    servidor_id TEXT NOT NULL REFERENCES booster_config(servidor_id),
+    usuario_id TEXT NOT NULL CHECK (usuario_id ~ '^[1-9][0-9]{0,19}$'),
+    sessao TEXT NOT NULL CHECK (sessao ~ '^[a-f0-9]{32}$'),
+    revisao INTEGER NOT NULL DEFAULT 0 CHECK (revisao >= 0),
+    canal_id TEXT,
+    mensagem_id TEXT,
+    canal_estado TEXT NOT NULL CHECK (canal_estado IN ('novo','criando','aberto','fechado')),
+    cargo_id TEXT,
+    cargo_estado TEXT NOT NULL CHECK (cargo_estado IN ('nenhum','criando','pendente','ativo')),
+    etapa TEXT NOT NULL CHECK (etapa IN ('nome','estilo','cores','icone','resumo','concluido','cancelado')),
+    nome TEXT NOT NULL DEFAULT '' CHECK (length(nome) <= 100),
+    estilo TEXT NOT NULL DEFAULT 'solida' CHECK (estilo IN ('solida','gradiente')),
+    cor_primaria TEXT CHECK (cor_primaria ~ '^#[0-9A-F]{6}$'),
+    cor_secundaria TEXT CHECK (cor_secundaria ~ '^#[0-9A-F]{6}$'),
+    icone BYTEA CHECK (icone IS NULL OR octet_length(icone) BETWEEN 1 AND 262144),
+    atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (servidor_id, usuario_id),
+    UNIQUE (servidor_id, cargo_id),
+    UNIQUE (servidor_id, canal_id),
+    CHECK (cargo_estado NOT IN ('pendente','ativo') OR cargo_id IS NOT NULL)
+);

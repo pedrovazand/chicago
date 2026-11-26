@@ -1,0 +1,44 @@
+{
+  "name": "chicago",
+  "version": "1.0.0",
+  "description": "Bot Discord desenvolvido em pequenas entregas com TypeScript e Node.js.",
+  "scripts": {
+    "start": "node --env-file=.env src/index.ts",
+    "check": "tsc --noEmit",
+    "config:check": "node --env-file=.env src/check-config.ts",
+    "rone:check": "node --env-file-if-exists=.env src/check-rone.ts",
+    "rone:hero": "node --env-file-if-exists=.env src/try-rone.ts",
+    "test": "node --test src/rone/client.test.ts src/vinculos/tokens.test.ts src/vinculos/service.test.ts src/vinculos/pending.test.ts src/discord/rone-interactions.test.ts src/boosters/eligibility.test.ts src/boosters/panel.test.ts src/discord/booster-interactions.test.ts src/boosters/image.test.ts src/boosters/benefit-service.test.ts src/discord/booster-ticket-interactions.test.ts src/boosters/benefit-discord.test.ts src/boosters/preferences.test.ts src/boosters/diagnostics.test.ts src/boosters/role-position.test.ts",
+    "test:db": "node --env-file=.env --test src/vinculos/repository.test.ts src/boosters/repository.test.ts src/boosters/benefit-repository.test.ts",
+    "db:setup": "node --env-file-if-exists=.env src/db/setup-local.ts",
+    "db:migrate": "node --env-file=.env src/db/migrate.ts",
+    "db:check": "node --env-file=.env src/db/check.ts",
+    "commands:register": "node --env-file=.env src/register-commands.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedrovazand/chicago.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/pedrovazand/chicago/issues"
+  },
+  "homepage": "https://github.com/pedrovazand/chicago#readme",
+  "devDependencies": {
+    "@types/node": "^24.19.4",
+    "@types/pg": "^8.23.1",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "dependencies": {
+    "discord.js": "^14.28.1",
+    "pg": "^8.23.1"
+  }
+}
